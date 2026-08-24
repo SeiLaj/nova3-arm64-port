@@ -1,0 +1,47 @@
+# Proprietary / game content — never commit
+*.apk
+*.obb
+*.gla
+*.bdae
+*.etc
+*.irr
+
+# Native binaries extracted from the game
+**/libNOVA3_neon.so
+**/libNOVA3_8_neon.so
+**/libc++_shared.so
+lib/armeabi-v7a/
+lib/x86/
+lib/armeabi/
+assets/libNOVA3_neon.txt
+
+# Build / local
+build/
+obj/
+libs/
+.gradle/
+local.properties
+*.keystore
+*.jks
+*.idsig
+
+# Termux / device dumps
+installed_lib.so
+*.dex
+c.dex
+pack.info
+shared_prefs/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*~
+*.swp
+.idea/
+.vscode/
+
+# Large archives
+*.tar
+*.tar.gz
+*.zip
+!docs/**/*.zip

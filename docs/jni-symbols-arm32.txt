@@ -1,0 +1,85 @@
+# JNI / dynamic symbols snapshot — libNOVA3_neon.so (armeabi-v7a)
+
+Source: nm -D on library extracted from a user-owned APK (local only).
+Machine: ELF32 ARM, DYN, ~18 MiB.
+Dynamic symbol count (defined): ~4148
+Java_* JNI count (grep): ~55
+
+## NEEDED (readelf -d)
+
+  libstdc++.so
+  libGLESv2.so
+  libOpenSLES.so
+  liblog.so
+  libc.so
+  libm.so
+  libdl.so
+
+SONAME observed: lib_Android.so
+
+## JNI_OnLoad
+
+  JNI_OnLoad
+
+## GL2JNILib (sample)
+
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_GamePause
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_GameResume
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_InitViewSettings
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_OnKeyDown
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_OnKeyUp
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_OnKeyboardFinish
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_SetDepthValue
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_accelerometerEvent
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_destroy
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_getNumExtraContext
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_gyroscopeEvent
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_init
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_initGL
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeIsMainMenuOrIGM
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeIsSlideChanged
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeMogaVersion
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeOnKeyDown
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeOnKeyUp
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativePowerStatus
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetIsMOGA
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetPowerALeftJoystick
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetPowerARightJoystick
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetSO01D
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetXperiaPlay
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_orientationChanged
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_processTouchpadAsPointer
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_resize
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_setNumExtraContext
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_setPaths
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_stateChanged
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_step
+  Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_touchEvent
+
+## Installer / DRM / IAB (sample)
+
+  Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_getPublicKey
+  Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_initNative
+  Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_nativeGetDevID
+  Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_nativeStart
+  Java_com_gameloft_android_ANMP_GloftN3HM_installer_GDRMPolicy_getConstString
+  Java_com_gameloft_android_ANMP_GloftN3HM_installer_GDRMPolicy_initNativeAP
+  Java_com_gameloft_android_ANMP_GloftN3HM_installer_GDRMPolicy_nativeAllow
+  Java_com_gameloft_android_ANMP_GloftN3HM_installer_GDRMPolicy_processServer
+  Java_com_gameloft_android_ANMP_GloftN3HM_installer_GDRMPolicy_setConst
+  Java_com_gameloft_android_ANMP_GloftN3HM_installer_GDRMPolicy_setLongConst
+  Java_com_gameloft_android_ANMP_GloftN3HM_installer_GDRMPolicy_setTime
+  Java_com_gameloft_android_ANMP_GloftN3HM_iab_InAppBilling_nativeInit
+  Java_com_gameloft_android_ANMP_GloftN3HM_iab_InAppBilling_nativeSendData
+  Java_com_gameloft_android_ANMP_GloftN3HM_iab_InAppBilling_nativeSetContext
+  Java_com_gameloft_android_ANMP_GloftN3HM_iab_InAppBilling_nativeSetIABObject
+
+## Push (sample)
+
+  Java_com_gameloft_android_ANMP_GloftN3HM_PushNotification_C2DMAndroidUtils_nativeCallBack
+  Java_com_gameloft_android_ANMP_GloftN3HM_PushNotification_C2DMAndroidUtils_nativeInit
+  Java_com_gameloft_android_ANMP_GloftN3HM_PushNotification_C2DMAndroidUtils_nativeOnPushNotificationReceive
+
+# Re-generate on device (do not commit .so):
+
+#   nm -D lib/armeabi-v7a/libNOVA3_neon.so | grep ' Java_\|JNI_OnLoad'
