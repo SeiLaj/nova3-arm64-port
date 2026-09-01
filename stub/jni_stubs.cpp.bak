@@ -1,0 +1,167 @@
+#include <jni.h>
+#include <android/log.h>
+#include <cstdio>
+#include <cstring>
+
+#define LOG_TAG "NOVA3_stub"
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+
+static char g_path0[512], g_path1[512], g_path2[512], g_path3[512];
+
+static void jstr_copy(JNIEnv* env, jstring js, char* dst, size_t n) {
+    if (!dst || n == 0) return;
+    dst[0] = '\0';
+    if (!js) return;
+    const char* s = env->GetStringUTFChars(js, nullptr);
+    if (!s) return;
+    strncpy(dst, s, n - 1);
+    dst[n - 1] = '\0';
+    env->ReleaseStringUTFChars(js, s);
+}
+
+extern "C" JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM*, void*) {
+    LOGI("JNI_OnLoad — setPaths stub");
+    return JNI_VERSION_1_6;
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_setPaths(
+    JNIEnv* env, jclass, jstring a, jstring b, jstring c, jstring d) {
+    jstr_copy(env, a, g_path0, sizeof g_path0);
+    jstr_copy(env, b, g_path1, sizeof g_path1);
+    jstr_copy(env, c, g_path2, sizeof g_path2);
+    jstr_copy(env, d, g_path3, sizeof g_path3);
+    LOGI("setPaths[0]=%s", g_path0);
+    LOGI("setPaths[1]=%s", g_path1);
+    LOGI("setPaths[2]=%s", g_path2);
+    LOGI("setPaths[3]=%s", g_path3);
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetIsMOGA(JNIEnv*, jclass, jint v) {
+    LOGI("nativeSetIsMOGA(%d)", (int)v);
+}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_init(JNIEnv*, jclass) {
+    LOGI("init()");
+    const char* roots[] = {
+        "/sdcard/Android/data/com.gameloft.android.ANMP.GloftN3HM/files",
+        "/storage/emulated/0/Android/data/com.gameloft.android.ANMP.GloftN3HM/files",
+        g_path0, g_path1, g_path2, g_path3
+    };
+    const char* names[] = {
+        "levels.gla","actors.gla","weapons.gla","sprites.gla",
+        "sounds_hi.gla","menus.gla","effects.gla"
+    };
+    for (auto root : roots) {
+        if (!root || !root[0]) continue;
+        LOGI("probe root=%s", root);
+        for (auto n : names) {
+            char buf[768];
+            snprintf(buf, sizeof buf, "%s/%s", root, n);
+            FILE* f = fopen(buf, "rb");
+            if (f) {
+                fseek(f, 0, SEEK_END);
+                long sz = ftell(f);
+                fclose(f);
+                LOGI("FOUND %s size=%ld", buf, sz);
+            }
+        }
+    }
+}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_initGL(JNIEnv*, jclass) { LOGI("initGL()"); }
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_resize(JNIEnv*, jclass, jint w, jint h) {
+    LOGI("resize(%d,%d)", (int)w, (int)h);
+}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_step(JNIEnv*, jclass) {}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_setResourcePath(JNIEnv* env, jclass, jstring p) {
+    const char* s = p ? env->GetStringUTFChars(p, nullptr) : nullptr;
+    LOGI("setResourcePath(%s)", s ? s : "(null)");
+    if (s) env->ReleaseStringUTFChars(p, s);
+}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetXperiaPlay(JNIEnv*, jclass, jboolean) {}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetSO01D(JNIEnv*, jclass, jboolean) {}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativePowerStatus(JNIEnv*, jclass, jboolean) {}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_destroy(JNIEnv*, jclass) {}
+
+/* GameInstaller */
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_initNative(JNIEnv*, jobject) {
+    LOGI("GameInstaller.initNative()");
+}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_initNative__(JNIEnv* e, jobject o) {
+    Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_initNative(e, o);
+}
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_getPublicKey(JNIEnv* env, jclass) {
+    LOGI("getPublicKey()");
+    /* chave de teste LVL (AOSP) — só para o parser RSA não rebentar */
+    return env->NewStringUTF(
+        "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy0REY8A0AQAB");
+}
+
+/* GDRM / IAB / C2DM — no-ops */
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GDRMPolicy_initNativeAP(JNIEnv*, jclass) {
+    LOGI("GDRMPolicy.initNativeAP");
+}
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GDRMPolicy_getConstString(JNIEnv* env, jclass, jint i) {
+    LOGI("GDRMPolicy.getConstString(%d)", (int)i);
+    return env->NewStringUTF("");
+}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_iab_InAppBilling_nativeInit(JNIEnv*, jclass, jobject) {
+    LOGI("InAppBilling.nativeInit");
+}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_iab_InAppBilling_nativeInit__Landroid_content_Context_2(
+    JNIEnv* e, jclass c, jobject ctx) {
+    Java_com_gameloft_android_ANMP_GloftN3HM_iab_InAppBilling_nativeInit(e, c, ctx);
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_nativeStart(JNIEnv*, jobject) {
+    LOGI("GameInstaller.nativeStart()");
+}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_nativeStart__(JNIEnv* e, jobject o) {
+    Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_nativeStart(e, o);
+}
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_PushNotification_C2DMAndroidUtils_nativeInit(JNIEnv*, jclass, jobject) {
+    LOGI("C2DM nativeInit()");
+}
+
+#define STUBV(name) extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_##name(JNIEnv*, jclass, ...) { LOGI(#name); }
+/* stubs simples (assinaturas alargadas: JNI ignora extra se o linker achar o nome) */
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_GamePause(JNIEnv*, jclass) { LOGI("GamePause"); }
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_GameResume(JNIEnv*, jclass) { LOGI("GameResume"); }
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_InitViewSettings(JNIEnv*, jclass) { LOGI("InitViewSettings"); }
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_OnKeyDown(JNIEnv*, jclass, jint) {}
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_OnKeyUp(JNIEnv*, jclass, jint) {}
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_OnKeyboardFinish(JNIEnv*, jclass) {}
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_SetDepthValue(JNIEnv*, jclass, jfloat) {}
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_SetUsedGPU(JNIEnv*, jclass, jint) {}
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_accelerometerEvent(JNIEnv*, jclass, jfloat, jfloat, jfloat) {}
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_gyroscopeEvent(JNIEnv*, jclass, jfloat, jfloat, jfloat) {}
+extern "C" JNIEXPORT jint JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_getNumExtraContext(JNIEnv*, jclass) { return 0; }
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_setNumExtraContext(JNIEnv*, jclass, jint) {}
+extern "C" JNIEXPORT jboolean JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeIsMainMenuOrIGM(JNIEnv*, jclass) { return JNI_FALSE; }
+extern "C" JNIEXPORT jboolean JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeIsSlideChanged(JNIEnv*, jclass, jboolean) { return JNI_FALSE; }
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeMogaVersion(JNIEnv*, jclass, jint) {}
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetPowerALeftJoystick(JNIEnv*, jclass, jfloat, jfloat, jfloat) {}
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetPowerARightJoystick(JNIEnv*, jclass, jfloat, jfloat, jfloat) {}
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_orientationChanged(JNIEnv*, jclass, jint) {}
+extern "C" JNIEXPORT jboolean JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_processTouchpadAsPointer(JNIEnv*, jclass, jint, jobject, jboolean) { return JNI_FALSE; }
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_stateChanged(JNIEnv*, jclass, jint) {}
+extern "C" JNIEXPORT void JNICALL Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_touchEvent(JNIEnv*, jclass, jint, jint, jint, jint) {}

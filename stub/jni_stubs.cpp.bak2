@@ -1,0 +1,121 @@
+// Minimal ORIGINAL arm64 JNI stub for experimentation.
+// Does not contain Gameloft engine code.
+// Build with Android NDK clang++ for aarch64; link -llog only as needed.
+
+#include <jni.h>
+#include <cstdio>
+#include <cstring>
+#include <android/log.h>
+
+#define LOG_TAG "NOVA3_stub"
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+
+extern "C" JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void*) {
+    LOGI("JNI_OnLoad — original minimal arm64 stub");
+    return JNI_VERSION_1_6;
+}
+
+static void noop(JNIEnv*, jclass) {}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_init(JNIEnv*, jclass) {
+    LOGI("init()");
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_initGL(JNIEnv*, jclass) {
+    LOGI("initGL()");
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_step(JNIEnv*, jclass) {
+    // Frame tick — no real renderer
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_resize(JNIEnv*, jclass, jint w, jint h) {
+    LOGI("resize(%d,%d)", (int)w, (int)h);
+}
+
+extern "C" JNIEXPORT void JNICALL
+
+static char g_path0[512], g_path1[512], g_path2[512], g_path3[512];
+
+static void jstr_copy(JNIEnv* env, jstring js, char* dst, size_t n) {
+    if (!dst || n == 0) return;
+    dst[0] = '\0';
+    if (!js) return;
+    const char* s = env->GetStringUTFChars(js, nullptr);
+    if (s) {
+        strncpy(dst, s, n - 1);
+        dst[n - 1] = '\0';
+        env->ReleaseStringUTFChars(js, s);
+    }
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_setPaths(
+    JNIEnv* env, jclass, jstring a, jstring b, jstring c, jstring d) {
+    jstr_copy(env, a, g_path0, sizeof g_path0);
+    jstr_copy(env, b, g_path1, sizeof g_path1);
+    jstr_copy(env, c, g_path2, sizeof g_path2);
+    jstr_copy(env, d, g_path3, sizeof g_path3);
+    LOGI("setPaths[0]=%s", g_path0);
+    LOGI("setPaths[1]=%s", g_path1);
+    LOGI("setPaths[2]=%s", g_path2);
+    LOGI("setPaths[3]=%s", g_path3);
+    const char* obb_name = "main.1050.com.gameloft.android.ANMP.GloftN3HM.obb";
+    char obb_try[640];
+    for (int i = 0; i < 2; i++) {
+        const char* base = (i == 0) ? g_path2 : g_path3;
+        if (!base[0]) continue;
+        snprintf(obb_try, sizeof obb_try, "%s/%s", base, obb_name);
+        FILE* f = fopen(obb_try, "rb");
+        if (f) {
+            fclose(f);
+            LOGI("OBB found: %s", obb_try);
+            return;
+        }
+        LOGI("OBB miss: %s", obb_try);
+    }
+    snprintf(obb_try, sizeof obb_try,
+        "/storage/emulated/0/Android/obb/com.gameloft.android.ANMP.GloftN3HM/%s",
+        obb_name);
+    FILE* f = fopen(obb_try, "rb");
+    if (f) {
+        fclose(f);
+        LOGI("OBB found (fallback): %s", obb_try);
+    } else {
+        LOGI("OBB NOT found (fallback): %s", obb_try);
+    }
+}
+
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetIsMOGA(JNIEnv*, jclass, jint v) {
+    LOGI("nativeSetIsMOGA(%d)", (int)v);
+}
+
+// Installer helpers often required to pass early Java flows — still no engine.
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_getPublicKey(
+    JNIEnv* env, jclass) {
+    // Placeholder: replace with your own test key material if you exercise LVL locally.
+    // Do not commit third-party private keys.
+    return env->NewStringUTF("");
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_initNative(JNIEnv*, jclass) {
+    LOGI("GameInstaller.initNative()");
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_nativeStart(JNIEnv*, jclass) {
+    LOGI("GameInstaller.nativeStart()");
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_iab_InAppBilling_nativeInit(JNIEnv*, jclass, jobject) {
+    LOGI("InAppBilling.nativeInit()");
+}

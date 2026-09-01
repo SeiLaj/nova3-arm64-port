@@ -10,7 +10,6 @@
 #include <jni.h>
 #include <android/log.h>
 #include <cstring>
-#include "engine/glf_app.h"
 
 #define LOG_TAG "NOVA3_stub"
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
@@ -23,19 +22,9 @@ extern "C" JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM*, void*) {
 // ─── GL2JNILib ───────────────────────────────────────────────────────────────
 
 extern "C" JNIEXPORT void JNICALL
-
 Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_init(JNIEnv*, jclass) {
-    LOGI("init() -> glf::App");
-    static glf::App s_app;
-    glf::CreationSettings settings;
-    settings.width = 1280;
-    settings.height = 720;
-    settings.flags = 0;
-    s_app.Init(settings);
-    s_app.MyInit();
-    glf::App::SetInstance(&s_app);
+    LOGI("init()");
 }
-
 
 extern "C" JNIEXPORT void JNICALL
 Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_initGL(JNIEnv*, jclass) {
@@ -43,10 +32,7 @@ Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_initGL(JNIEnv*, jclass) {
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_step(JNIEnv*, jclass) {
-    glf::App* app = glf::App::GetInstance();
-    if (app) app->Update();
-}
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_step(JNIEnv*, jclass) {}
 
 extern "C" JNIEXPORT void JNICALL
 Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_resize(JNIEnv*, jclass, jint w, jint h) {
