@@ -1,7 +1,11 @@
-
-#include "engine/test_all_files.cpp"
 #include "glf_app.h"
 #include <android/log.h>
+#include "test_all_files.cpp"
+
+// Declarações extern do renderizador
+extern bool init_gles();
+extern void render_quad();
+
 #define LOG_TAG "NOVA3_engine"
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 
@@ -29,6 +33,7 @@ void glf::App::Run() {
 }
 void glf::App::Update() {
     if (!m_running) return;
+    render_quad();
 }
 void glf::App::Deinit() {
     LOGI("App::Deinit()");
