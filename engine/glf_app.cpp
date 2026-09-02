@@ -3,8 +3,9 @@
 #include "test_all_files.cpp"
 
 // Declarações extern do renderizador
-extern bool init_gles();
-extern void render_quad();
+extern "C" bool init_gles();
+extern "C" bool init_renderer();
+extern "C" void render_textured_quad();
 
 #define LOG_TAG "NOVA3_engine"
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
@@ -20,6 +21,11 @@ glf::App::~App() {
 bool glf::App::Init(glf::CreationSettings& s) {
     LOGI("App::Init(%dx%d)", s.width, s.height);
     m_initialized = true;
+    LOGI("=== CHAMANDO init_renderer() ===");
+    init_renderer();
+    LOGI("=== CHAMANDO render_textured_quad() ===");
+    render_textured_quad();
+    LOGI("=== INIT FINALIZADO ===");
     return true;
 }
 bool glf::App::MyInit() {
@@ -32,8 +38,9 @@ void glf::App::Run() {
     m_running = true;
 }
 void glf::App::Update() {
+    // Forçar renderização mesmo se m_running for false
+    render_textured_quad();
     if (!m_running) return;
-    render_quad();
 }
 void glf::App::Deinit() {
     LOGI("App::Deinit()");

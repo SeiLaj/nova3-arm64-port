@@ -8,14 +8,17 @@
 
 // Incluir o motor
 #include "engine/glf_app.h"
+extern void test_all_files();
 
 extern "C" JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void*) {
+    __android_log_print(ANDROID_LOG_ERROR, "NOVA3_engine", "=== JNI_OnLoad CHAMADO (ERROR) ===");
     LOGI("JNI_OnLoad — clean stub");
     return JNI_VERSION_1_6;
 }
 
 extern "C" JNIEXPORT void JNICALL
 Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_init(JNIEnv*, jclass) {
+    __android_log_print(ANDROID_LOG_ERROR, "NOVA3_engine", "=== INIT JNI CHAMADO (ERROR) ===");
     LOGI("init() -> glf::App");
     static glf::App s_app;
     glf::CreationSettings settings;
@@ -58,86 +61,47 @@ Java_com_gameloft_android_ANMP_GloftN3HM_installer_GameInstaller_nativeStart(JNI
 // Push Notification C2DM
 extern "C" JNIEXPORT void JNICALL
 Java_com_gameloft_android_ANMP_GloftN3HM_PushNotification_C2DMAndroidUtils_nativeInit(JNIEnv*, jclass, jobject) {
-    LOGI("C2DMAndroidUtils.nativeInit");
-}
-extern "C" JNIEXPORT void JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_PushNotification_C2DMAndroidUtils_nativeInit__(JNIEnv* env, jclass clazz) {
-    LOGI("C2DMAndroidUtils.nativeInit (no context)");
+    __android_log_print(ANDROID_LOG_ERROR, "NOVA3_engine", "C2DMAndroidUtils.nativeInit");
 }
 
-// GL2JNILib extras
 extern "C" JNIEXPORT jboolean JNICALL
 Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeIsSlideChanged(JNIEnv*, jclass, jboolean) {
-    LOGI("nativeIsSlideChanged");
     return JNI_FALSE;
 }
 
-// GL2JNILib - funções adicionais
-extern "C" JNIEXPORT void JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetPowerALeftJoystick(JNIEnv*, jclass, jfloat, jfloat, jfloat) {
-    LOGI("nativeSetPowerALeftJoystick");
-}
-extern "C" JNIEXPORT void JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeSetPowerARightJoystick(JNIEnv*, jclass, jfloat, jfloat, jfloat) {
-    LOGI("nativeSetPowerARightJoystick");
-}
-extern "C" JNIEXPORT void JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeMogaVersion(JNIEnv*, jclass, jint) {
-    LOGI("nativeMogaVersion");
-}
-extern "C" JNIEXPORT jboolean JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativeIsMainMenuOrIGM(JNIEnv*, jclass) {
-    LOGI("nativeIsMainMenuOrIGM");
-    return JNI_FALSE;
-}
-extern "C" JNIEXPORT void JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_GamePause(JNIEnv*, jclass) {
-    LOGI("GamePause");
-}
-extern "C" JNIEXPORT void JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_GameResume(JNIEnv*, jclass) {
-    LOGI("GameResume");
-}
 extern "C" JNIEXPORT void JNICALL
 Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_InitViewSettings(JNIEnv*, jclass) {
-    LOGI("InitViewSettings");
-}
-extern "C" JNIEXPORT void JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_SetDepthValue(JNIEnv*, jclass, jfloat) {
-    LOGI("SetDepthValue");
-}
-extern "C" JNIEXPORT void JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_SetUsedGPU(JNIEnv*, jclass, jint) {
-    LOGI("SetUsedGPU");
-}
-extern "C" JNIEXPORT void JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_touchEvent(JNIEnv*, jclass, jint, jint, jint, jint) {
-    // LOGI("touchEvent"); // muito ruído
-}
-extern "C" JNIEXPORT void JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_OnKeyDown(JNIEnv*, jclass, jint) {
-    // LOGI("OnKeyDown");
-}
-extern "C" JNIEXPORT void JNICALL
-Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_OnKeyUp(JNIEnv*, jclass, jint) {
-    // LOGI("OnKeyUp");
+    __android_log_print(ANDROID_LOG_INFO, "NOVA3_engine", "InitViewSettings stub");
 }
 
-// GL2JNILib - getNumExtraContext
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_SetDepthValue(JNIEnv*, jclass, jint) {
+    __android_log_print(ANDROID_LOG_INFO, "NOVA3_engine", "SetDepthValue stub");
+}
+
 extern "C" JNIEXPORT jint JNICALL
 Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_getNumExtraContext(JNIEnv*, jclass) {
-    LOGI("getNumExtraContext");
-    return 0; // Sem contextos extras
+    __android_log_print(ANDROID_LOG_INFO, "NOVA3_engine", "getNumExtraContext stub -> 0");
+    return 0;
 }
 
-// GL2JNILib - stateChanged
 extern "C" JNIEXPORT void JNICALL
 Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_stateChanged(JNIEnv*, jclass, jboolean) {
-    LOGI("stateChanged");
+    __android_log_print(ANDROID_LOG_INFO, "NOVA3_engine", "stateChanged stub");
 }
 
-// GL2JNILib - nativePowerStatus
 extern "C" JNIEXPORT void JNICALL
 Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_nativePowerStatus(JNIEnv*, jclass, jboolean) {
-    LOGI("nativePowerStatus");
+    __android_log_print(ANDROID_LOG_INFO, "NOVA3_engine", "nativePowerStatus stub");
 }
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_GamePause(JNIEnv*, jclass) {
+    __android_log_print(ANDROID_LOG_INFO, "NOVA3_engine", "GamePause stub");
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_gameloft_android_ANMP_GloftN3HM_GL2JNILib_GameResume(JNIEnv*, jclass) {
+    __android_log_print(ANDROID_LOG_INFO, "NOVA3_engine", "GameResume stub");
+}
+
